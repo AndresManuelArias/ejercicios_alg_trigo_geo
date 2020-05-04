@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 6.3.5.2 (Linux)"/>
+	<meta name="created" content="2020-05-02T18:36:27.003869097"/>
+	<meta name="changed" content="2020-05-02T18:53:42.950692492"/>
+	<script src="sumatoria.js" >	</script>
+	<script>
+		var _sumatoria = new sumatoria();
+		_sumatoria.secuencia_(0,4)((i)=> tabla[4-1][i])
+	</script>
+</head>
+<body lang="es-CO" dir="ltr"><p style="margin-top: 0.42cm; page-break-after: avoid">
+<font face="Liberation Sans, sans-serif"><font size="4" style="font-size: 14pt">Sumatorias</font></font></p>
+<img src="matriz.png" >
+<p><u>Escriba la fila que quiere sumar</u></p>
+<form action="">
+	<label>Fila</label>
+	<label><input type="number" name="fila"  size="20" style="width: 4.39cm; height: 0.66cm"></label>
+	<input type="button" value="sumar fila" onclick="resultado.value = _sumatoria.secuencia_(0,4)((i)=> tabla[Number(fila.value)-1][i])"/>
+	<label>resultado</label>
+	<label><input type="number" name="resultado"  size="19" style="width: 4.18cm; height: 0.95cm"></label>
+</form>
+</body>
+</html>

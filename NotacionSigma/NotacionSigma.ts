@@ -6,7 +6,10 @@ let tabla:number[][] =  [
     [23, 20, 35 , 36 , 26 ],
     [23, 25, 29 , 39 , 33 ]
 ]
-class sumatoria {
+let fila :number[]= [ 
+    0.004 , 0.003 , 0.001 , 0.002 , 0.003 , 0.009 , 0.006 , 0.001
+]
+class NotacionSigma {
 
     secuencia(start:number,end:number,count:number =1):number[]{
         let colection :number[] = [];
@@ -15,12 +18,22 @@ class sumatoria {
         }
         return colection;
     }
-    secuencia_(start:number,end:number,count:number =1): (funcion:(a:any) => number) => number{
+    sumatoria(start:number,end:number,count:number =1): (funcion:(a:any) => number) => number{
 
         return (funcion:(numero:number) => number)=>{
             let suma:number=0;
             for (let index = start; index <= end; index+=count) {
                 suma += funcion(index) 
+            }
+            return suma;
+        };
+    }
+    productoria(start:number,end:number,count:number =1): (funcion:(a:any) => number) => number{
+
+        return (funcion:(numero:number) => number)=>{
+            let suma:number=1;
+            for (let index = start; index <= end; index+=count) {
+                suma *= funcion(index) 
             }
             return suma;
         };

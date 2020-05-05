@@ -6,22 +6,35 @@
 	<meta name="generator" content="LibreOffice 6.3.5.2 (Linux)"/>
 	<meta name="created" content="2020-05-02T18:36:27.003869097"/>
 	<meta name="changed" content="2020-05-02T18:53:42.950692492"/>
-	<script src="sumatorias_/sumatoria.js" >	</script>
+	<script src="NotacionSigma/NotacionSigma.js" >	</script>
 	<script>
-		var _sumatoria = new sumatoria();
-		_sumatoria.secuencia_(0,4)((i)=> tabla[4-1][i])
+		var _notacionSigma = new NotacionSigma();
+		_notacionSigma.sumatoria(0,4)((i)=> tabla[4-1][i])
 	</script>
 </head>
 <body lang="es-CO" dir="ltr"><p style="margin-top: 0.42cm; page-break-after: avoid">
 <font face="Liberation Sans, sans-serif"><font size="4" style="font-size: 14pt">Sumatorias</font></font></p>
-<img src="sumatorias_/matriz.png" >
+<h2>Sumatoria</h2>
+<img src="NotacionSigma/matriz.png" >
 <p><u>Escriba la fila que quiere sumar</u></p>
 <form action="">
 	<label>Fila</label>
 	<label><input type="number" name="fila"  size="20" style="width: 4.39cm; height: 0.66cm"></label>
-	<input type="button" value="sumar fila" onclick="resultado.value = _sumatoria.secuencia_(0,4)((i)=> tabla[Number(fila.value)-1][i])"/>
+	<input type="button" value="sumar fila" onclick="resultado.value = _notacionSigma.sumatoria(0,4)((i)=> tabla[Number(fila.value)-1][i])"/>
 	<label>resultado</label>
 	<label><input type="number" name="resultado"  size="19" style="width: 4.18cm; height: 0.95cm"></label>
+</form>
+<h2>Productoria</h2>
+<img src="NotacionSigma/fila.png" >
+<p><u>Escriba las columnas que quiere multiplicar</u></p>
+<form action="">
+	<label>Inicio</label>
+	<label><input type="number" min="1"  max="8" name="Inicio"  size="20" style="width: 4.39cm; height: 0.66cm"></label>
+	<label>Fin</label>
+	<label><input type="number" min="1"  max="8" name="Fin"  size="20" style="width: 4.39cm; height: 0.66cm"></label>
+	<input type="button" value="Multiplicar fila" onclick="resultado1.value = _notacionSigma.productoria(Number(Inicio.value)-1,Number(Fin.value)-1)((i)=> fila[i])"/>
+	<label>resultado</label>
+	<label><input type="number" name="resultado1"  size="19" style="width: 4.18cm; height: 0.95cm"></label>
 </form>
 </body>
 </html>

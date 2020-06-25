@@ -5,11 +5,11 @@ function deGrados_a_radianes (grados:number):number {
     return grados *(Math.PI / 180);
 };
 
-function gradosDeC(lado_AC:number,lado_AB:number, gradosB:number){   
+function gradosDeC(lado_AC:number,lado_AB:number, gradosB:number):number{   
    return deRadianes_a_grados(Math.asin(lado_AB*Math.sin(deGrados_a_radianes(gradosB))/lado_AC))
 }
 
-function alturaTriangulo(lado_AC:number,lado_AB:number, gradosC:number){
+function alturaTriangulo(lado_AC:number,lado_AB:number, gradosC:number):number{
     let gradosAnguloA:number = 85;
     let lado_a = leyCoseno(lado_AC,lado_AB,gradosAnguloA)
     let gradosRestar:number = 180-90-gradosAnguloB(lado_a,lado_AC)

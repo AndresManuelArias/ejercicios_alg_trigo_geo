@@ -4,7 +4,7 @@ import * as geometria_analitica from "../geometria_analitica/index.ts"
 
 interface datosProbar {
     puntos:geometria_analitica.Punto[]
-    resultado:number|number[];
+    resultado:number|number[]|any;
 }
 let probar:datosProbar[]= [
     {puntos:[{x:6,y:0},{x:3,y:-4}],
@@ -79,11 +79,45 @@ let probar:datosProbar[]= [
     //h
     {puntos:[{x:1,y:2},{x:0,y:-2}],
     resultado:Math.sqrt(17)},
+    //--
+    {puntos:[{x:-6,y:3},{x:3,y:-3}],
+    resultado:Math.sqrt(117)},
+    {puntos:[{x:-6,y:-2},{x:-1,y:1}],
+    resultado:Math.sqrt(34)},  
+    {puntos:[{x:-6,y:-2},{x:-10,y:-7}],
+    resultado:Math.sqrt(41)},
+    {puntos:[{x:2,y:4},{x:0,y:8}],
+    resultado:Math.sqrt(20)},
+    {puntos:[{x:2,y:4},{x:6,y:7}],
+    resultado:Math.sqrt(25)}, 
+    {puntos:[{x:1,y:-5},{x:4,y:-1}],
+    resultado:5}, 
+    {puntos:[{x:2,y:-3},{x:-5,y:4}],
+    resultado:Math.sqrt(98)}, 
+    {puntos:[{x:2,y:-3},{x:-7,y:-6}],
+    resultado:Math.sqrt(90)}, 
+    {puntos:[{ x: 6, y: -1 },{ x: 2, y: 1 }],
+    resultado:Math.sqrt(20)}, 
 ]
 
 probar.forEach((data:datosProbar,index)=>{
     Deno.test(`Distancia entre puntos ${index}`, () => {
         assertEquals(geometria_analitica.medirDistanciaDospuntos(data.puntos[0],data.puntos[1]),data.resultado)
+    });
+})
+let distancia:datosProbar[]= [
+    {puntos:[{x:2,y:-3},{x:-5,y:4},{x:8,y:5},{x:-7,y:-6}],
+        resultado:{   
+            distancia:Math.sqrt(90),
+            punto:{x:-7,y:-6}
+        }
+    },
+
+]
+distancia.forEach((data:datosProbar,index)=>{
+    Deno.test(`Distancia menor ${index}`, () => {
+        let puntos:geometria_analitica.Punto[]=data.puntos.splice(1)
+        assertEquals(geometria_analitica.encontrarPuntoMasCercano(data.puntos[0],puntos),data.resultado)
     });
 })
 
@@ -143,7 +177,17 @@ let probarMedirDistancias:datosProbar[]= [
     {puntos:[{x:-6,y:5},{x:-2,y:5},{x:6,y:0},{x:2,y:-4},{x:-6,y:1},{x:-6,y:5}],
     resultado:32.524816513605586},
     {puntos:[{x:-6,y:9},{x:5,y:9},{x:8,y:1},{x:2,y:-6},{x:-3,y:-6},{x:-9,y:1},{x:-6,y:9}],
-    resultado:51.52709640522084}
+    resultado:51.52709640522084},
+    {puntos:[{x:-3,y:3},{x:7,y:-3}],
+    resultado:Math.sqrt(136)},
+    {puntos:[{x:-3,y:3},{x:-4,y:-5},{x:7,y:-3}],
+    resultado:19.242597635797498},
+    {puntos:[{x:1,y:1},{x:3,y:5},{x:4,y:2},{x:1,y:1}],
+    resultado:2*Math.sqrt(5)+2*Math.sqrt(10)},
+    {puntos:[{x:3,y:1},{x:2,y:4},{x:-1,y:2},{x:3,y:1}],
+    resultado:Math.sqrt(10)+Math.sqrt(13)+Math.sqrt(17)},
+    {puntos:[{x:5,y:3},{x:1,y:-2}],
+    resultado:Math.sqrt(41)}
 ]
 probarMedirDistancias.forEach((data:datosProbar,index)=>{
     Deno.test(`distancia entre puntos ${index}`, () => {
@@ -174,7 +218,7 @@ probarAreaTrapecioPuntos.forEach((data:probarAreaTrapecio,index)=>{
 
 interface ProbarAreaCuadrado {
     lineas:geometria_analitica.linea[]
-    resultado: number
+    resultado: number|boolean
 }
 let probarAreaCuadradosPuntos:ProbarAreaCuadrado[]=[
     {
@@ -197,6 +241,13 @@ let probarAreaCuadradosPuntos:ProbarAreaCuadrado[]=[
             {puntoA:{x:-2,y:-3},puntoB:{x:-4,y:5}}
         ],
         resultado:34
+    },
+    {
+        lineas:[
+            {puntoA:{x:35,y:5},puntoB:{x:45,y:-25}},
+            {puntoA:{x:35,y:5},puntoB:{x:-25,y:-15}}
+        ],
+        resultado:2000
     }
 ]
 probarAreaCuadradosPuntos.forEach((data:ProbarAreaCuadrado,index)=>{
@@ -233,3 +284,136 @@ probarAreaTriangulosPuntos.forEach((data:ProbarAreaCuadrado,index)=>{
         assertEquals(geometria_analitica.areaTrianguloPuntos(data.lineas[0],data.lineas[1]),data.resultado)
     });
 })
+
+let probarAreaCirculoPuntos:ProbarAreaCuadrado[]=[
+    {
+        lineas:[
+            {puntoA:{x:-20,y:20},puntoB:{x:10,y:20}}
+        ],
+        resultado:2827.4333882308138
+    }
+]
+probarAreaCirculoPuntos.forEach((data:ProbarAreaCuadrado,index)=>{
+    Deno.test(`area circulos entre puntos ${index}`, () => {
+        assertEquals(geometria_analitica.areaCirculoPuntos(data.lineas[0].puntoA,data.lineas[0].puntoB),data.resultado)
+    });
+})
+
+interface ProbarTriangulo{
+    lineas:geometria_analitica.linea[]
+    resultados: any[]
+}
+
+let probarTriangulos:ProbarTriangulo[]=[
+    {
+        lineas:[
+            {puntoA:{x:2,y:1},puntoB:{x:3,y:-2}},
+            {puntoA:{x:3,y:-2},puntoB:{x:6,y:-1}},
+            {puntoA:{x:6,y:-1},puntoB:{x:2,y:1}}
+        ],
+        resultados:[2,
+            {
+                linea: { puntoA: { x: 6, y: -1 }, puntoB: { x: 2, y: 1 } },
+                distancia: Math.sqrt(20)
+           }      
+        ,true
+        ],
+    },
+    {
+    lineas:[
+            {puntoA:{x:1,y:1},puntoB:{x:3,y:0}},
+            {puntoA:{x:3,y:0},puntoB:{x:4,y:2}},
+            {puntoA:{x:4,y:2},puntoB:{x:1,y:1}}
+        ],
+        resultados:[2,
+            {
+                linea: { puntoA: { x: 4, y: 2 }, puntoB: { x: 1, y: 1 } },
+                distancia: Math.sqrt(10)
+            },
+            true
+        ]
+    },
+    {
+    lineas:[
+            {puntoA:{x:0,y:0},puntoB:{x:1,y:2}},
+            {puntoA:{x:1,y:2},puntoB:{x:3,y:1}},
+            {puntoA:{x:3,y:1},puntoB:{x:0,y:0}}
+        ],
+        resultados:[2,
+            {
+                linea: {puntoA:{x:3,y:1},puntoB:{x:0,y:0}},
+                distancia: Math.sqrt(10)
+            },
+            true
+        ]
+    }
+    , {
+        lineas:[
+                {puntoA:{x:0,y:2},puntoB:{x:2,y:4}},
+                {puntoA:{x:2,y:4},puntoB:{x:6,y:0}},
+                {puntoA:{x:6,y:0},puntoB:{x:0,y:2}}
+            ],
+            resultados:[0,
+                {
+                    linea: {puntoA:{x:6,y:0},puntoB:{x:0,y:2}},
+                    distancia: Math.sqrt(40)
+                },
+                true
+            ]
+        }
+]
+probarTriangulos.forEach((data:ProbarTriangulo,index)=>{
+    Deno.test(`Si es isoceles ${index}`, () => {
+        assertEquals(geometria_analitica.conteo_lados_iguales(data.lineas),data.resultados[0])
+    });
+    Deno.test(`Lado mayor ${index}`, () => {
+        assertEquals(geometria_analitica.ladoMayor(data.lineas),data.resultados[1])
+    });
+    Deno.test(`Es triangulo Rectangulo ${index}`, () => {
+        assertEquals(geometria_analitica.saber_si_es_triangulo_rectangulo(data.lineas),data.resultados[2])
+    });
+})
+
+let lados_iguales:ProbarAreaCuadrado[]=[
+    {
+        lineas:[
+            {puntoA:{x:2,y:1},puntoB:{x:3,y:-2}},
+            {puntoA:{x:3,y:-2},puntoB:{x:6,y:-1}},
+            {puntoA:{x:6,y:-1},puntoB:{x:2,y:1}}
+        ],
+        resultado:2
+    },
+    {
+    lineas:[
+            {puntoA:{x:1,y:1},puntoB:{x:3,y:0}},
+            {puntoA:{x:3,y:0},puntoB:{x:4,y:2}},
+            {puntoA:{x:4,y:2},puntoB:{x:1,y:1}}
+        ],
+        resultado:2
+    }
+]
+lados_iguales.forEach((data:ProbarAreaCuadrado,index)=>{
+    Deno.test(`Si es isoceles ${index}`, () => {
+        assertEquals(geometria_analitica.conteo_lados_iguales(data.lineas),data.resultado)
+    });
+})
+
+interface ProbarAreaPoligono {
+    puntos:geometria_analitica.Punto[]
+    apotema:geometria_analitica.linea
+    resultado:number|number[]|any;
+}
+// let probarAreaPoligonoPuntos:ProbarAreaPoligono[]=[
+//     {
+//         puntos:[
+//             {x:-20,y:20},{x:10,y:20}
+//         ],
+//         apotema:{puntoA:{x:2,y:3},puntoB:{x:2,y:3}},
+//         resultado:2827.4333882308138
+//     }
+// ]
+// probarAreaPoligonoPuntos.forEach((data:ProbarAreaPoligono,index)=>{
+//     Deno.test(`area poligonos entre puntos ${index}`, () => {
+//         assertEquals(geometria_analitica.areaPoligonoRegularPuntos(data.puntos,data.apotema),data.resultado)
+//     });
+// })

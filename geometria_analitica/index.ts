@@ -96,6 +96,9 @@ export interface AreaTrapecio{
  export function perimetroCirculo(radio:number):number{
     return 2*Math.PI*radio
  }
+ export function perimetroCirculoPuntos(radio:linea):number{
+   return perimetroCirculo(medirDistanciaDospuntos(radio.puntoA,radio.puntoB))
+}
  export function areaCirculoPuntos(centro:Punto,puntoRadio:Punto):number{
    return areaCirculo(medirDistanciaDospuntos(centro,puntoRadio))
 }

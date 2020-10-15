@@ -9,7 +9,7 @@ let tabla:number[][] =  [
 let fila :number[]= [ 
     0.004 , 0.003 , 0.001 , 0.002 , 0.003 , 0.009 , 0.006 , 0.001
 ]
-class NotacionSigma {
+export class NotacionSigma {
 
     secuencia(start:number,end:number,count:number =1):number[]{
         let colection :number[] = [];
